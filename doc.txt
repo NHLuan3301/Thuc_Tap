@@ -1,5 +1,6 @@
+//// BACK-END(SERVER) ////
+
 b1. tạo folder server và client (có thể tạo sau)
-b2. SERVER:
 	tạo folder server: npm init -y (tạo file packet.json)
 	ở folder server sẽ tải những thư viện để viết api: nodemon, cors, express, mongodb, mongoose, dotenv, bcrypt(mã hóa password)
 		npm install {những thư viện cần sử dụng}
@@ -45,3 +46,22 @@ b6. 1.trong 1 file .env khai báo theo dạng tên biến viết hoa toàn bộ 
 	--- http://localhost:5000/api/nguoi-dung/get-all-nguoi-dung?keyword=vq&order Khi truyền params vào api, param đầu tiên sau api sẽ là ?, tất cả các params còn lại sẽ dùng &
 	
 	--- Những bảng có liên kết khoá phụ(ref) khi trả dữ liệu về muốn lấy toàn bộ thông tin thay vì objectId thì sử dụng populate('','')
+
+//// FRONT-END(CLIENT) ////
+
+
+	Tạo dự án react vs vite : npm create vite@latest client -- --template react
+	client:là tên của project(folder)
+	cài đặt thư viện Tailwind css : npm i tailwindcss @tailwindcss/vite
+	tạo file config Tailwindcss để nhắc lệnh lúc code
+	npx tailwindcss-cli@latest init
+	import tailwindcss vào vite.config.js
+		import tailwindcss from '@tailwindcss/vite'
+		plugins: [
+    		tailwindcss(),
+  		],
+	import tailwindcss vào file css :index.css
+	@import "tailwindcss";
+
+
+	Tải những thư viện cần thiết để code : axios react-redux react-router-dom 
