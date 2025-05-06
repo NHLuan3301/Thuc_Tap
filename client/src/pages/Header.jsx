@@ -26,7 +26,7 @@ export default function Header() {
         <div className="flex flex-col sm:flex-row justify-between text-center gap-2 sm:gap-6 text-sm md:text-base text-[#5C5C5C]">
           <span>Email: Wisdom12348@gmail.com</span>
           <span>Hotline: 0799224145</span>
-          <span>Đăng nhập/ Đăng ký</span>
+          <a href="/login">Đăng nhập/ Đăng ký</a>
         </div>
 
         {/* Bottom Row: Navigation */}
