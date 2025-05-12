@@ -92,9 +92,12 @@ export default function ServiceIntro() {
       </div>
 
       {/* CTA Button */}
-      <button className="mt-6 bg-red-600 hover:bg-red-700 text-white text-sm md:text-base px-6 py-2 rounded-xl shadow-md transition">
+      <a
+        href="/services"
+        className="mt-6 bg-red-600 hover:bg-red-700 text-white text-sm md:text-base px-6 py-2 rounded-xl shadow-md transition"
+      >
         Xem thêm dịch vụ
-      </button>
+      </a>
     </div>
   );
 }
