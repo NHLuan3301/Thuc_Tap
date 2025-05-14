@@ -2,8 +2,10 @@ import {
   Button,
   DatePicker,
   Form,
+  Input,
   InputNumber,
   Modal,
+  Rate,
   Select,
   Space,
   Table,
@@ -12,7 +14,7 @@ import dayjs from "dayjs";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import React, { useState } from "react";
 
-export default function OrderManagement() {
+export default function OderManagement() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -28,10 +30,12 @@ export default function OrderManagement() {
 
   const openEdit = (record) => {
     setIsEdit(true);
+    console.log(record);
+
     form.setFieldsValue({
       ...record,
-      startDate: dayjs(record.startDate),
-      endDate: dayjs(record.endDate),
+      createdDate: dayjs(record.createdDate),
+      deliveryDate: dayjs(record.deliveryDate),
     });
     showModal();
   };
@@ -57,7 +61,7 @@ export default function OrderManagement() {
       dataIndex: "deliveryDate",
     },
     {
-      title: "Trạng thái",
+      title: "Trạng thái của tài xế",
       key: "status",
       dataIndex: "status",
     },
@@ -72,10 +76,11 @@ export default function OrderManagement() {
       dataIndex: "paymentStatus",
     },
     {
-      title: "Tài xế phụ trách",
+      title: "Tên tài xế phụ trách",
       key: "driverAssigned",
       dataIndex: "driverAssigned",
     },
+
     {
       title: "Action",
       key: "action",
@@ -92,45 +97,54 @@ export default function OrderManagement() {
   ];
   const data = [
     {
-      driverId: "ten01",
-      driverName: "Nguyễn văn a",
-      phoneNumber: "1234567",
-      vehicleNumber: "1234",
-      status: "bận",
-      totalDeliveries: 2,
-      rating: "4",
+      orderId: "ten02",
+      customerName: "Trần Thị B",
+      createdDate: "2025-05-10",
+      deliveryDate: "2025-05-12",
+      status: "Chờ xử lý",
+      totalAmount: "250000",
+      paymentStatus: "Chưa thanh toán",
+      driverAssigned: "Lê Văn C",
     },
     {
-      tenantId: "ten02",
-      startDate: "2025-05-13",
-      endDate: "2025-05-15",
-      status: "Ngừng giao",
-      progress: 40,
-      progressStatus: "Behind",
-    },
-    {
-      tenantId: "ten03",
-      startDate: "2025-05-10",
-      endDate: "2025-05-20",
+      orderId: "ten03",
+      customerName: "Lê Văn C",
+      createdDate: "2025-05-11",
+      deliveryDate: "2025-05-13",
       status: "Đang giao",
-      progress: 90,
-      progressStatus: "On track",
+      totalAmount: "175000",
+      paymentStatus: "Đã thanh toán",
+      driverAssigned: "Nguyễn Văn D",
     },
     {
-      tenantId: "ten04",
-      startDate: "2025-05-08",
-      endDate: "2025-05-09",
+      orderId: "ten04",
+      customerName: "Phạm Thị D",
+      createdDate: "2025-05-09",
+      deliveryDate: "2025-05-11",
+      status: "Đã giao",
+      totalAmount: "320000",
+      paymentStatus: "Đã thanh toán",
+      driverAssigned: "Trần Văn E",
+    },
+    {
+      orderId: "ten05",
+      customerName: "Ngô Văn E",
+      createdDate: "2025-05-08",
+      deliveryDate: "2025-05-10",
       status: "Đã hủy",
-      progress: 0,
-      progressStatus: "Behind",
+      totalAmount: "98000",
+      paymentStatus: "Chưa thanh toán",
+      driverAssigned: "Phạm Thị F",
     },
     {
-      tenantId: "ten05",
-      startDate: "2025-05-05",
-      endDate: "2025-05-18",
+      orderId: "ten06",
+      customerName: "Hoàng Thị F",
+      createdDate: "2025-05-07",
+      deliveryDate: "2025-05-09",
       status: "Đang giao",
-      progress: 100,
-      progressStatus: "On track",
+      totalAmount: "210000",
+      paymentStatus: "Đã thanh toán",
+      driverAssigned: "Nguyễn Văn G",
     },
   ];
   const [form] = Form.useForm();
@@ -139,19 +153,20 @@ export default function OrderManagement() {
     form.resetFields();
     handleCancel();
   };
+
   return (
     <div>
       <div className="flex flex-row justify-between items-center">
-        <h1 className="text-xl font-semibold">Quản lý Tenant</h1>
+        <h1 className="text-xl font-semibold">Quản lý đơn hàng</h1>
         <Button color="cyan" variant="solid" onClick={showModal}>
-          Tạo Tenant
+          Thêm đơn hàng
         </Button>
       </div>{" "}
       <div className="mt-4">
         <Table columns={columns} dataSource={data} />
       </div>
       <Modal
-        title={isEdit ? "Sửa Tenant" : "Tạo Tenant"}
+        title={isEdit ? "Chỉnh sửa thông tin tài xế" : "Thêm tài xế"}
         closable={{ "aria-label": "Custom Close Button" }}
         open={isModalOpen}
         onOk={() => form.submit()}
@@ -159,56 +174,95 @@ export default function OrderManagement() {
       >
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Form.Item
-            label="Ngày bắt đầu"
-            name="startDate"
-            rules={[{ required: true, message: "Vui lòng chọn ngày bắt đầu" }]}
+            name={["orderId"]}
+            label="Mã số của đơn hàng"
+            rules={[{ required: true, message: "Hãy nhập Mã số của đơn hàng" }]}
           >
-            <DatePicker placeholder="Chọn ngày bắt đầu" />
+            <Input placeholder="Nhập mã số của đơn hàng" />
           </Form.Item>
           <Form.Item
-            label="Ngày kết thúc"
-            name="endDate"
-            rules={[{ required: true, message: "Vui lòng chọn ngày kết thúc" }]}
+            name={["customerName"]}
+            label="Tên khách hàng"
+            rules={[
+              { required: true, message: "Hãy nhập tên của khách hàng !" },
+            ]}
           >
-            <DatePicker placeholder="Chọn ngày kết thúc" />
+            <Input placeholder="Nhập tên khách hàng" />
           </Form.Item>
           <Form.Item
-            label="Trạng thái"
+            label="Ngày tạo đơn hàng"
+            name="createdDate"
+            rules={[
+              { required: true, message: "Vui lòng chọn ngày tạo đơn hàng" },
+            ]}
+          >
+            <DatePicker placeholder="Chọn ngày tạo đơn hàng" />
+          </Form.Item>
+          <Form.Item
+            label="Ngày giao dự kiến"
+            name="deliveryDate"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn ngày giao hàng dự kiến!",
+              },
+            ]}
+          >
+            <DatePicker placeholder="Chọn ngày giao hàng dự kiến" />
+          </Form.Item>
+          <Form.Item
+            label="Trạng thái của đơn hàng"
             name="status"
-            rules={[{ required: true, message: "Vui lòng chọn trạng thái" }]}
+            rules={[
+              { required: true, message: "Hãy chọn trạng thái của đơn hàng!" },
+            ]}
           >
-            <Select placeholder="Chọn trạng thái">
-              <Select.Option value="Ngừng giao">Ngừng giao</Select.Option>
+            <Select placeholder="Chọn trạng thái của đơn hàng">
+              <Select.Option value="Chờ xử lý ">Chờ xử lý</Select.Option>
               <Select.Option value="Đang giao">Đang giao</Select.Option>
-              <Select.Option value="Đã huỷ">Đã huỷ</Select.Option>
+              <Select.Option value="Đã giao">Đã giao</Select.Option>
+              <Select.Option value="Đã huỷ">Đã hủy</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item
-            label="Tiến độ hoàn thành"
-            name="progress"
+            name={["totalAmount"]}
+            label="Tổng giá tiền của đơn hàng"
             rules={[
-              { required: true, message: "Vui lòng nhập Tiến độ hoàn thành" },
+              {
+                required: true,
+                message: "Hãy nhập tổng giá tiền của đơn hàng!",
+              },
             ]}
           >
-            <InputNumber
-              placeholder="Nhập tiến độ hoàn thành"
-              addonAfter="%"
-              className="!w-full"
-              min={0}
-              max={100}
-              type="number"
-            />
+            <Input placeholder="Nhập tổng giá tiền của đơn hàng" />
           </Form.Item>
           <Form.Item
-            label="Trạng thái tiến độ"
-            name="progressStatus"
+            label="Trạng thái thanh toán"
+            name="paymentStatus"
             rules={[
-              { required: true, message: "Vui lòng chọn trạng thái tiến độ" },
+              { required: true, message: "Hãy chọn Trạng thái thanh toán!" },
             ]}
           >
-            <Select placeholder="Chọn trạng thái">
-              <Select.Option value="On Track">On Track</Select.Option>
-              <Select.Option value="Behind">Behind</Select.Option>
+            <Select placeholder="Chọn Trạng thái thanh toán">
+              <Select.Option value="Đã thanh toán ">
+                Đã thanh toán
+              </Select.Option>
+              <Select.Option value="Đang nghĩ">Chưa thanh toán</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            label="Tên tài xế phụ trách"
+            name="driverAssigned"
+            rules={[
+              { required: true, message: "Hãy chọn Tên tài xế phụ trách!" },
+            ]}
+          >
+            <Select placeholder="Chọn Tên tài xế phụ trách">
+              <Select.Option value="Trần Thị B ">Trần Thị B</Select.Option>
+              <Select.Option value="Lê Văn C">Lê Văn C</Select.Option>
+              <Select.Option value="Phạm Thị D">Phạm Thị D</Select.Option>
+              <Select.Option value="Ngô Văn E">Ngô Văn E</Select.Option>
+              <Select.Option value="Hoàng Thị F">Hoàng Thị F</Select.Option>
             </Select>
           </Form.Item>
         </Form>
