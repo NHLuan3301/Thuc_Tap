@@ -8,7 +8,7 @@ import DriverManagement from "../pages/admin/DriveManagement";
 export default function AdminRoutes() {
   return (
     <Routes>
-      <Route element={<AdminLayout />}>
+      <Route path="/" element={<AdminLayout />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/order-management" element={<OrderManagement />} />
         <Route path="/tenant-management" element={<TenantManagement />} />
