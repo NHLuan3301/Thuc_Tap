@@ -79,7 +79,7 @@ export default function Login() {
           </div>
           <div className="flex justify-center gap-4 p-3">OR</div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
               <input
                 type="text"
@@ -105,8 +105,8 @@ export default function Login() {
               )}
             </div>
             <button
+              className="bg-[#E70012] text-white text-xl font-semibold py-4 rounded-lg hover:bg-red-700 transition duration-300"
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold py-4 rounded-lg transition duration-300"
             >
               Đăng nhập
             </button>

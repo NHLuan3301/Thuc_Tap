@@ -73,22 +73,22 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl shadow-lg rounded-lg overflow-hidden">
-        <div className="bg-white flex flex-col items-center justify-center p-8">
-          <img
-            src="/LogoHeader.png"
-            alt="logo-header"
-            className="w-14 h-12 md:w-[95px] md:h-[66px] object-contain mb-4"
-          />
-          <h2 className="text-3xl font-bold mb-2">Register page</h2>
-          <p className="text-sm text-gray-500 text-center"></p>
+      <div className="bg-white w-full max-w-4xl flex shadow-lg rounded-xl overflow-hidden">
+        <div className="hidden md:flex flex-col justify-center items-center bg-white px-8 py-12 w-1/2">
+          <div className="flex items-center flex-col font-semibold text-xl">
+            <img
+              src="/LogoHeader.png"
+              alt="logo-header"
+              className="w-40 h-40 object-contain"
+            />
+            <div className="flex gap-1">
+              <span className="text-red-500">Wisdom </span>
+              <span> logistics</span>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-gray-50 p-8">
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Đăng ký tài khoản
-          </h2>
-
+        <div className="w-full md:w-1/2 p-8">
           <div className="mb-4">
             <button
               className="w-full flex items-center justify-center border border-gray-300 py-2 rounded-md hover:shadow"

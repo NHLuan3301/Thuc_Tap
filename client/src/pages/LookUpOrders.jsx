@@ -1,61 +1,77 @@
-import { Check } from "lucide-react";
+import { Check, CalendarDays, Bike } from "lucide-react";
 import React from "react";
+import { Button, Form, Input } from "antd";
 
 export default function LookUpOrders() {
   return (
-    <div>
+    <div className="w-full px-4 md:px-10 py-8">
       {/* Title */}
+      <h1 className="text-2xl md:text-3xl font-semibold mb-6">
+        Tra cứu đơn hàng
+      </h1>
 
-      {/* input và button */}
+      {/* Form */}
+      <Form layout="vertical" className="w-full">
+        <div className="flex flex-col md:flex-row items-center gap-4 w-full">
+          <Form.Item
+            label={<span className="text-base font-medium">Mã đơn hàng</span>}
+            name="order_code"
+            colon={false}
+            className="w-full md:max-w-md"
+          >
+            <Input
+              size="large"
+              placeholder="Nhập mã đơn hàng"
+              className="rounded-md border-red-500 focus:border-red-500 focus:ring-red-500"
+            />
+          </Form.Item>
+          <Form.Item className="w-full md:w-auto">
+            <Button
+              htmlType="submit"
+              size="large"
+              className="!bg-red-500 !hover:bg-red-600 !text-white w-full md:w-auto mt-1 md:mt-[30px]"
+            >
+              Tra cứu
+            </Button>
+          </Form.Item>
+        </div>
+      </Form>
 
-      {/* Step */}
-      <ol className="flex items-center w-full">
-        <li className="flex w-full items-center text-blue-600 dark:text-blue-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-100 after:border-4 after:inline-block dark:after:border-blue-800">
-          <div className="flex flex-col">
-            <span className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
-              <Check />
-            </span>
-          </div>
-        </li>
-        <li className="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700">
-          <span className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
-            <svg
-              className="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 16"
+      {/* Step Indicator */}
+      <div className="mt-10 w-full">
+        <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between relative">
+          {/* Đường kẻ ngang */}
+          <div className="hidden md:block absolute top-[22px] left-0 right-0 h-[4px] bg-red-500 z-0" />
+
+          {/* Các bước */}
+          {[
+            { label: "Đã tiếp nhận", icon: <Check size={20} /> },
+            { label: "Đang xử lý", icon: <CalendarDays size={20} /> },
+            { label: "Đang giao", icon: <Bike size={20} /> },
+          ].map((step, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center z-10 md:w-1/3 text-center"
             >
-              <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z" />
-            </svg>
-          </span>
-        </li>
-        <li className="flex items-center w-full">
-          <span className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
-            <svg
-              className="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 18 20"
-            >
-              <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v3H7V2Zm5.7 8.289-3.975 3.857a1 1 0 0 1-1.393 0L5.3 12.182a1.002 1.002 0 1 1 1.4-1.436l1.328 1.289 3.28-3.181a1 1 0 1 1 1.392 1.435Z" />
-            </svg>
-          </span>
-        </li>
-      </ol>
-      <div className="flex items-center w-full">
-        <li className="flex items-center w-full">
-          <span className="whitespace-normal">Đã tiếp nhân</span>
-        </li>
-        <li className="flex items-center w-full">
-          <span className="whitespace-normal">Đã tiếp nhân</span>
-        </li>
-        <li className="flex items-center w-full">
-          <span className="whitespace-normal">Đã tiếp nhân</span>
-        </li>
+              <div className="bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center">
+                {step.icon}
+              </div>
+              <span className="mt-2 text-lg font-medium">{step.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      {/* map */}
+      {/* Map */}
+      <div className="mt-10 w-full">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4734811371477!2d106.63185107586864!3d10.775001859218305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ea144839ef1%3A0x798819bdcd0522b0!2zQ2FvIMSQ4bqzbmcgQ8O0bmcgTmdo4buHIFRow7RuZyBUaW4gVFAuSENN!5e0!3m2!1svi!2s!4v1747932042241!5m2!1svi!2s"
+          className="w-full h-[300px] md:h-[450px]"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
     </div>
   );
 }
