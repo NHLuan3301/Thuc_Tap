@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 const images = [
   "/carouselBanner.png",
   "/carouselBanner2.png",
@@ -8,11 +8,11 @@ const images = [
 
 export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // 5s chuyển ảnh
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -32,10 +32,13 @@ export default function Carousel() {
             Giao hàng siêu nhanh, nhưng giá lại siêu rẻ!
           </h1>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 mt-6 items-center justify-center">
-            <button className="bg-[#E70012] rounded-lg px-6 py-3 sm:px-10 sm:py-5 text-white font-bold text-lg sm:text-2xl hover:scale-105 active:scale-95 transition transform">
+            <button className="cursor-pointer bg-[#E70012] rounded-lg px-6 py-3 sm:px-10 sm:py-5 text-white font-bold text-lg sm:text-2xl hover:scale-105 active:scale-95 transition transform">
               Đặt hàng ngay
             </button>
-            <button className="bg-white rounded-lg px-6 py-3 sm:px-10 sm:py-5 text-[#E70012] font-bold text-lg sm:text-2xl hover:scale-105 active:scale-95 transition transform">
+            <button
+              onClick={() => navigate("/introduce")}
+              className="cursor-pointer bg-white rounded-lg px-6 py-3 sm:px-10 sm:py-5 text-[#E70012] font-bold text-lg sm:text-2xl hover:scale-105 active:scale-95 transition transform"
+            >
               Tìm hiểu thêm
             </button>
           </div>
